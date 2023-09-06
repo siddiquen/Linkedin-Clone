@@ -4,7 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { router } from './Routes';
-import { app } from "./firebaseConfig";
+import { app, auth } from "./firebaseConfig";
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
