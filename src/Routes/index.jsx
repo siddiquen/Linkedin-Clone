@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 
 export const router = createBrowserRouter([
     {
-      path: "/login",
+      path: "/",
       element: <Login />, //runs the Login script here
     },
   ]);

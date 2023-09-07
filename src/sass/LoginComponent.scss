@@ -1,6 +1,37 @@
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    height: 50vh;
+}
+
 .login-btn {
+    margin-top: 20px;
     width: 150px;
     height: 30px;
     cursor: pointer;
     background-color: black;
+}
+
+.auth-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .common-input {
+        height: 20px;
+        padding: 10px;
+    }
+    ::placeholder {
+        color: white;
+    }
+}
+
+.LinkedinLogo {
+    width: 80px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
