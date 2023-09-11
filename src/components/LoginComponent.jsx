@@ -45,6 +45,7 @@ export default function LoginComponent() {
                 Sign in
                 </button>
             </div>
+            <hr className="hr-text" data-content="or" />
         </div>
     );
 }
