@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { LoginAPI } from "../api/AuthAPI";
+import { LoginAPI, RegisterAPI} from "../api/AuthAPI";
 import Linkedin_Logo from "/Users/curio/Documents/Coding_Projects/linkedin-clone/src/assets/Linkedin_Logo.png";
+import GoogleButton from 'react-google-button';
 import "../sass/LoginComponent.scss";
 
 export default function LoginComponent() {
@@ -10,9 +11,11 @@ export default function LoginComponent() {
     const login = async () => {
         try {
             let res = await LoginAPI(credentials.email, credentials.password)
-            console.log(res?.user);
+            console.log(res);
         } catch(err) {
-            console.log(err.errors.message);
+            console.log(err);
+            let res = await RegisterAPI(credentials.email, credentials.password)
+            console.log(res);
         }
         
     };
@@ -45,7 +48,14 @@ export default function LoginComponent() {
                 Sign in
                 </button>
             </div>
-            <hr className="hr-text" data-content="or" />
+            <div className='google-btn-container'>
+                <GoogleButton
+                    className='google-button'
+                    onClick={() => { console.log('Google button clicked') }}
+                />
+                <p className='go-to-signup'>New to Linkedin? <span className='join-now'>Join now</span>
+                </p>
+            </div>
         </div>
     );
 }
