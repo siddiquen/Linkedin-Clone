@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { LoginAPI, RegisterAPI} from "../api/AuthAPI";
+import { LoginAPI, RegisterAPI, GoogleSigninAPI } from "../api/AuthAPI";
 import Linkedin_Logo from "/Users/curio/Documents/Coding_Projects/linkedin-clone/src/assets/Linkedin_Logo.png";
 import GoogleButton from 'react-google-button';
+import { useNavigate } from 'react-router-dom';
 import "../sass/LoginComponent.scss";
+import { toast } from 'react-toastify';
 
 export default function LoginComponent() {
+    let navigate = useNavigate();
     const [credentials, setCredentials] = useState({});
     //function that runs the loginAPI
     //it will get used in the login button
@@ -12,13 +15,18 @@ export default function LoginComponent() {
         try {
             let res = await LoginAPI(credentials.email, credentials.password)
             console.log(res);
+            toast.success('Signin Complete');
         } catch(err) {
             console.log(err);
-            let res = await RegisterAPI(credentials.email, credentials.password)
-            console.log(res);
+            toast.error('Please check c redentials');
         }
         
     };
+
+    const googleSignIn = () => {
+        let response = GoogleSigninAPI();
+        console.log(response);
+    }
 
     return (
         <div className="login-wrapper">
@@ -51,9 +59,9 @@ export default function LoginComponent() {
             <div className='google-btn-container'>
                 <GoogleButton
                     className='google-button'
-                    onClick={() => { console.log('Google button clicked') }}
+                    onClick={googleSignIn}
                 />
-                <p className='go-to-signup'>New to Linkedin? <span className='join-now'>Join now</span>
+                <p className='go-to-signup'>New to Linkedin? <span className='join-now' onClick={() => navigate('/register')}>Join now</span>
                 </p>
             </div>
         </div>
