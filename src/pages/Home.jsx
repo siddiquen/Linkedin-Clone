@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import LoginComponent from '../components/LoginComponent';
+import HomeComponent from "../components/HomeComponent";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 
-export default function Login() {
+export default function Home() {
     useEffect(() => {
         onAuthStateChanged(auth, res => {
             console.log(res?.accessToken);
         })
     }, [])
-    return <LoginComponent />;
+    return <HomeComponent />;
 }

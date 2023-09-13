@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LoginAPI, RegisterAPI, GoogleSigninAPI } from "../api/AuthAPI";
+import { LoginAPI, GoogleSigninAPI } from "../api/AuthAPI";
 import Linkedin_Logo from "/Users/curio/Documents/Coding_Projects/linkedin-clone/src/assets/Linkedin_Logo.png";
 import GoogleButton from 'react-google-button';
 import { useNavigate } from 'react-router-dom';
@@ -16,9 +16,10 @@ export default function LoginComponent() {
             let res = await LoginAPI(credentials.email, credentials.password)
             console.log(res);
             toast.success('Signin Complete');
+            navigate('/home');
         } catch(err) {
             console.log(err);
-            toast.error('Please check c redentials');
+            toast.error('Please check credentials');
         }
         
     };
