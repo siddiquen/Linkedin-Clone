@@ -11,7 +11,10 @@ body {
     height: 100vh;
 
     .login-wrapper-inner {
-        margin-left: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     
     .heading {
@@ -83,7 +86,10 @@ body {
 
 .google-btn-container {
     margin-top: 30px;
-    margin-left: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     .google-button {
         width: 300px !important;
