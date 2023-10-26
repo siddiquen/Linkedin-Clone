@@ -1,5 +1,7 @@
 import React from "react";
+import '../sass/HomeComponent.scss';
+import PostStatus from "./common/PostUpdate";
 
 export default function HomeComponent() {
-    return <div><h1>HomeComponent</h1></div>;
+    return <div className="home-component"><PostStatus/></div>;
 }

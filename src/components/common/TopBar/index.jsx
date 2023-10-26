@@ -8,17 +8,22 @@ import {
     AiOutlineSearch,
     AiOutlineMessage,
     AiOutlineBell} from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 import {BsBriefcase} from 'react-icons/bs';
 
 
 export default function TopBar() {
+    let navigate = useNavigate();
+    const goToRoute = (route) => {
+        navigate(route);
+    };
     return <div className='topbar-main'>
         <img className="linkedin-logo" src={LinkedinLogo} alt='LinkedinLogo'/>
         <div className='react-icons'>
             <AiOutlineSearch size={20} className='react-icon'/>
-            <AiOutlineHome size={20} className='react-icon'/>
-            <AiOutlineUserSwitch size={20} className='react-icon'/>
-            <BsBriefcase size={20} className='react-icon'/>
+            <AiOutlineHome size={20} className='react-icon' onClick={() => goToRoute('/home')}/>
+            <AiOutlineUserSwitch size={20} className='react-icon' onClick={() => goToRoute('/profile')}/>
+            <BsBriefcase size={20} className='react-icon' />
             <AiOutlineMessage size={20} className='react-icon'/>
             <AiOutlineBell size={20} className='react-icon'/>
         </div>
