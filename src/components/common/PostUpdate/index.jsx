@@ -1,10 +1,16 @@
 import React, { useState} from "react";
 import ModalComponent from "../Modal";
+import { postStatus } from "../../../api/FirestoreAPIs";
 import './index.scss';
 
 export default function PostStatus() {
     const [modalOpen, setModalOpen] = useState(false);
     const [status, setStatus] = useState('')
+    const sentStatus = async () => {
+        await postStatus(status);
+        await setModalOpen(false);
+        await setStatus("");
+    };
 
     return <div className="post-status-main">
         <div className="post-status">
@@ -15,6 +21,7 @@ export default function PostStatus() {
             modalOpen={modalOpen}
             setModalOpen={setModalOpen}
             status={status}
+            sendStatus = { sentStatus}
         />
     </div>;
 }
