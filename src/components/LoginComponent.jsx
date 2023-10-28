@@ -16,6 +16,7 @@ export default function LoginComponent() {
             let res = await LoginAPI(credentials.email, credentials.password)
             console.log(res);
             toast.success('Signin Complete');
+            localStorage.setItem("userEmail" , res.user.email);
             navigate('/home');
         } catch(err) {
             console.log(err);
