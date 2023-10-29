@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RegisterAPI, GoogleSigninAPI } from "../api/AuthAPI";
+import { postUserData } from '../api/FirestoreAPIs';
 import Linkedin_Logo from "/Users/curio/Documents/Coding_Projects/linkedin-clone/src/assets/Linkedin_Logo.png";
 import GoogleButton from 'react-google-button';
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +12,12 @@ export default function RegisterComponent() {
     const [credentials, setCredentials] = useState({});
     //function that runs the loginAPI
     //it will get used in the login button
-    const login = async () => {
+    const register = async () => {
         try {
             let res = await RegisterAPI(credentials.email, credentials.password)
             console.log(res);
             toast.success('Account Created!');
+            postUserData({name: credentials.name, email: credentials.email});
             navigate('/home');
             localStorage.setItem("userEmail" , res.user.email);
         } catch(err) {
@@ -38,6 +40,14 @@ export default function RegisterComponent() {
                 <div className="auth-inputs">
                     <input
                         onChange={(event) =>
+                        setCredentials({ ...credentials, name: event.target.value })
+                        }
+                        type='text'
+                        className="common-input"
+                        placeholder="Your Name"
+                    />
+                    <input
+                        onChange={(event) =>
                         setCredentials({ ...credentials, email: event.target.value })
                         }
                         type='email'
@@ -53,7 +63,7 @@ export default function RegisterComponent() {
                         placeholder="Password (6 or more characters)"
                     />
                 </div>
-                <button onClick={login} className="login-btn">
+                <button onClick={register} className="login-btn">
                 Join
                 </button>
             </div>
