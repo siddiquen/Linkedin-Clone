@@ -25,7 +25,9 @@ export default function TopBar() {
 
     const displayPopup = () => {
         setPopupVisible(!popupVisible);
-    }
+    };
+
+    
     return (
         <div className='topbar-main'>
             {popupVisible ? (
