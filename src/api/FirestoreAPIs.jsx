@@ -1,6 +1,6 @@
 import Item from "antd/es/list/Item";
 import { firestore } from "../firebaseConfig";
-import { addDoc, collection, onSnapshot} from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, doc, updateDoc} from 'firebase/firestore';
 import { toast } from "react-toastify";
 
 let dbRef = collection(firestore, "posts");
@@ -44,5 +44,18 @@ export const getCurrentUser = (setCurrentUser) => {
                 return item.email === localStorage.getItem('userEmail');
             })[0]
         );
+    });
+}
+
+export const editProfile = (userId, payLoad) => {
+    let userToEdit = doc(userRef, userId);
+
+    updateDoc(userToEdit, payLoad)
+    .then (() => {
+        console.log('doc added successfully');
+        toast.success("Change submitted!")
+    })
+    .catch((err) => {
+        console.log(err);
     });
 }
