@@ -1,21 +1,23 @@
 import React, { useState, useMemo} from "react";
 import PostsCard from "../PostsCard";
-import { getSingleStatus, getSingleUser } from "../../../api/FirestoreAPIs";
+import { getStatus, getSingleStatus, getSingleUser } from "../../../api/FirestoreAPIs";
 import { useLocation } from "react-router-dom";
 import "./index.scss";
 
 export default function ProfileCard({currentUser, onEdit}) {
     let location = useLocation();
-    const [allStatuses, setAllStatus] = useState([]);
-    const [currentProfile, setCurrentProfile] = useState({});
+    const [allStatuses, setAllStatuses] = useState([]);
+    const [currentProfile, setCurrentProfile] = useState([]);
+    console.log("location from profileCard: ", location?.state?.id);
     useMemo(() => {
         if (location?.state?.id) {
-            getSingleStatus(setAllStatus, location?.state?.id);
-        }
-
-        if (location?.state?.email) {
             getSingleUser(setCurrentProfile, location?.state?.email);
         }
+        if (location?.state?.id) {
+            getSingleStatus(setAllStatuses, location?.state?.id);
+        }
+
+        
     }, []);
 
     return (
@@ -26,22 +28,20 @@ export default function ProfileCard({currentUser, onEdit}) {
                 </div>
                 <div className="profileInfo">
                     <div>
-                        <h3 className="userName">{currentUser.name}</h3>
-                        <p className="heading">{currentUser.headline}</p>
-                        <p className="location">{currentUser.location}</p>
+                        <h3 className="userName">{Object.values(currentProfile).length === 0 ? currentUser.name : currentProfile?.name}</h3>
+                        <p className="heading">{Object.values(currentProfile).length === 0 ? currentUser.headline : currentProfile?.headline}</p>
+                        <p className="location">{Object.values(currentProfile).length === 0 ? currentUser.location : currentProfile?.location}</p>
                     </div>
 
                     <div className="rightInfo">
-                        <p className="company">{currentUser.company}</p>
-                        <p className="university">{currentUser.university}</p>
+                        <p className="company">{Object.values(currentProfile).length === 0 ? currentUser.company : currentProfile?.company}</p>
+                        <p className="university">{Object.values(currentProfile).length === 0 ? currentUser.university : currentProfile?.university}</p>
                     </div>
                 </div>
                 
             </div>
-            <div className="post-status-main">
-                {allStatuses.filter((item) => {
-                    return item.userEmail === localStorage.getItem("userEmail");
-                }).map((posts) => {
+            <div>
+                {allStatuses?.map((posts) => {
                     return (
                         <div key={posts.id}>
                             <PostsCard posts = {posts}/>

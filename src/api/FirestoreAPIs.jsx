@@ -1,4 +1,3 @@
-import Item from "antd/es/list/Item";
 import { firestore } from "../firebaseConfig";
 import { addDoc, collection, onSnapshot, doc, updateDoc, query, where} from 'firebase/firestore';
 import { toast } from "react-toastify";
@@ -73,10 +72,13 @@ export const getSingleStatus = (setAllStatus, id) => {
   };
   
   export const getSingleUser = (setCurrentUser, email) => {
+    console.log("run");
     const singleUserQuery = query(userRef, where("email", "==", email));
     onSnapshot(singleUserQuery, (response) => {
       setCurrentUser(
         response.docs.map((docs) => {
+            console.log("get single user");
+            console.log(docs.data());
           return { ...docs.data(), id: docs.id };
         })[0]
       );
