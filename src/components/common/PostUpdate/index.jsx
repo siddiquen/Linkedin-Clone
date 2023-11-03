@@ -17,15 +17,18 @@ export default function PostStatus({currentUser}) {
             userEmail: currentUser.email,
             userName: currentUser.name,
             postID: getUniqueId(),
+            userId: currentUser.userId,
         };
         await postStatus(object);
         await setModalOpen(false);
         await setStatus("");
     };
+    //console.log(currentUser.id);
+    //console.log(currentUser.userId);
 
     useMemo(() => {
         getStatus(setAllStatuses);
-    }, [])
+    }, []);
 
     return (
         <div className="post-status-main">
@@ -45,7 +48,11 @@ export default function PostStatus({currentUser}) {
 
             <div>
                 {allStatuses.map((posts) => {
-                    return <PostsCard posts = {posts}/>;
+                    return (
+                        <div key={posts.id}>
+                            <PostsCard posts = {posts}/>
+                        </div>
+                    );
                 })}
             </div>
         </div>

@@ -4,6 +4,7 @@ import { postUserData } from '../api/FirestoreAPIs';
 import Linkedin_Logo from "/Users/curio/Documents/Coding_Projects/linkedin-clone/src/assets/Linkedin_Logo.png";
 import GoogleButton from 'react-google-button';
 import { useNavigate } from 'react-router-dom';
+import { getUniqueId } from '../helpers/getUniqueId';
 import "../sass/LoginComponent.scss";
 import { toast } from 'react-toastify';
 
@@ -17,7 +18,11 @@ export default function RegisterComponent() {
             let res = await RegisterAPI(credentials.email, credentials.password)
             console.log(res);
             toast.success('Account Created!');
-            postUserData({name: credentials.name, email: credentials.email});
+            postUserData({
+                userId: getUniqueId(), 
+                name: credentials.name, 
+                email: credentials.email,
+            });
             navigate('/home');
             localStorage.setItem("userEmail" , res.user.email);
         } catch(err) {
