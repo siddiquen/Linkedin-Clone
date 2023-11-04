@@ -72,13 +72,10 @@ export const getSingleStatus = (setAllStatus, id) => {
   };
   
   export const getSingleUser = (setCurrentUser, email) => {
-    console.log("run");
     const singleUserQuery = query(userRef, where("email", "==", email));
     onSnapshot(singleUserQuery, (response) => {
       setCurrentUser(
         response.docs.map((docs) => {
-            console.log("get single user");
-            console.log(docs.data());
           return { ...docs.data(), id: docs.id };
         })[0]
       );

@@ -4,7 +4,6 @@ import "./index.scss";
 
 export default function PostsCard({posts, id}) {
     let navigate = useNavigate();
-    console.log(posts.userEmail);
     return (
         <div className='postsCard' key={id}>
             <p 

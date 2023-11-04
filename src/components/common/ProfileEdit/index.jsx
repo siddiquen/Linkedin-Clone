@@ -10,7 +10,7 @@ export default function ProfileEdit({onEdit, currentUser}) {
         setEditInputs({...editInputs, ...input});
     };
     const updateProfileData = async () => {
-        await editProfile(currentUser?.userId, editInputs);
+        await editProfile(currentUser?.id, editInputs);
         await onEdit();
     };
 
