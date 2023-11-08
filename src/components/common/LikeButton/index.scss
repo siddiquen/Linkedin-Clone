@@ -1,0 +1,14 @@
+.likeContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 10px;
+    cursor: pointer;
+    
+    p{
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 600;
+        color: gray;
+        font-size: 14px;
+    }
+}

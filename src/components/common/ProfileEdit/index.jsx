@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { editProfile} from "../../../api/FirestoreAPIs.jsx";
+import { AiOutlineClose} from "react-icons/ai";
 import './index.scss';
 
 export default function ProfileEdit({onEdit, currentUser}) {
@@ -17,7 +18,7 @@ export default function ProfileEdit({onEdit, currentUser}) {
     return (
     <div className="profile-card">
         <div className="edit-btn">
-            <button onClick={onEdit}>Go Back</button>
+            <AiOutlineClose className = "closeIcon" onClick={onEdit} size ={25}/>
         </div>
         <div className='profileEditInputs'>
             <label>Full Name</label>
