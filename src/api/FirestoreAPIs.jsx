@@ -1,5 +1,5 @@
 import { firestore } from "../firebaseConfig";
-import { addDoc, collection, onSnapshot, doc, updateDoc, query, where, setDoc} from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, doc, updateDoc, query, where, setDoc, deleteDoc} from 'firebase/firestore';
 import { toast } from "react-toastify";
 
 let postsRef = collection(firestore, "posts");
@@ -83,26 +83,31 @@ export const getSingleStatus = (setAllStatus, id) => {
     });
   };
 
-export const likePost = (userId, postId) => {
+export const likePost = (userId, postId, liked) => {
     try {
         let docToLike = doc(likeRef, `${userId}_${postId}`);
-        setDoc(docToLike, {userId, postId});
+        if (liked) {
+            deleteDoc(docToLike)
+        }else {
+            setDoc(docToLike, {userId, postId});
+        }
     } catch (err) {
         console.log(err);
     }
     
 }
 
-export const getLikeByUser = (userId, postId) => {
+export const getLikeByUser = (userId, postId, setLiked, setLikesCount) => {
     try {
         let likesQuery = query(likeRef, where('postId', '==', postId));
         onSnapshot(likesQuery, (response) => {
             let likes = response.docs.map((doc) => doc.data());
             let likesCount = likes.length;
 
-            const isLiked = likes.some((Like) => {
-                Like.id === userId;
-            })
+            const isLiked = likes.some((like) => like.userId === userId);
+
+            setLikesCount(likesCount);
+            setLiked(isLiked);
         })
     } catch (err) {
         console.log(err);
