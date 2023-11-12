@@ -1,10 +1,13 @@
+$linkedinBlue1: rgb(0, 86, 156);
+$linkedinBlue2: rgb(1, 68, 124);
+
 .likeContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
     padding: 7px 10px;
-    cursor: pointer;
+    
     
     p{
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -13,11 +16,19 @@
         font-size: 14px;
         margin-bottom: -10px;
     }
-    .likes-inner {
-        display: flex;
-        align-items: center;
-        margin-top: -7px;
-        margin-bottom: -15px;
+    input{
+        margin-top: 25px;
+    }
+    .likes-comment {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        cursor: pointer;
+        div{
+            display: flex;
+            align-items: center;
+            margin-top: -7px;
+            margin-bottom: -15px;
+        }
         p{
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-weight: 600;
@@ -27,4 +38,21 @@
             margin-top: -5px;
         }
     }
+
+    .add-comment-btn {
+        width: 100px;
+        height: 30px;
+        cursor: pointer;
+        background-color: $linkedinBlue1;
+        border-radius: 30px;
+        outline: none;
+        border: none;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 600;
+        color: white;
+        font-size: 10px;
+        margin-top: 20px;
+    }
+
+    
 }

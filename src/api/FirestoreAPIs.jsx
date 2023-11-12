@@ -6,6 +6,7 @@ let postsRef = collection(firestore, "posts");
 let dbRef = collection(firestore, "posts");
 let userRef = collection(firestore, "users");
 let likeRef = collection(firestore, "likes");
+let commentRef = collection(firestore, "comments");
 
 export const postStatus = (object) => {
     addDoc(dbRef, object)
@@ -59,20 +60,20 @@ export const editProfile = (userId, payLoad) => {
     .catch((err) => {
         console.log(err);
     });
-}
+};
 
 export const getSingleStatus = (setAllStatus, id) => {
     const singlePostQuery = query(postsRef, where("userId", "==", id));
     onSnapshot(singlePostQuery, (response) => {
-      setAllStatus(
-        response.docs.map((docs) => {
-          return { ...docs.data(), id: docs.id };
-        })
-      );
+        setAllStatus(
+            response.docs.map((docs) => {
+                return { ...docs.data(), id: docs.id };
+            })
+        );
     });
-  };
+};
   
-  export const getSingleUser = (setCurrentUser, email) => {
+export const getSingleUser = (setCurrentUser, email) => {
     const singleUserQuery = query(userRef, where("email", "==", email));
     onSnapshot(singleUserQuery, (response) => {
       setCurrentUser(
@@ -81,7 +82,7 @@ export const getSingleStatus = (setAllStatus, id) => {
         })[0]
       );
     });
-  };
+};
 
 export const likePost = (userId, postId, liked) => {
     try {
@@ -95,7 +96,7 @@ export const likePost = (userId, postId, liked) => {
         console.log(err);
     }
     
-}
+};
 
 export const getLikeByUser = (userId, postId, setLiked, setLikesCount) => {
     try {
@@ -113,4 +114,28 @@ export const getLikeByUser = (userId, postId, setLiked, setLikesCount) => {
         console.log(err);
     }
     
-}
+};
+
+export const postComment = (postId, comment, timeStamp) => {
+    try {
+        addDoc(commentRef, {postId, comment, timeStamp})
+    } catch(err) {
+        console.log(err);
+    }
+};
+
+export const getComments = (postId, setComments) => {
+    try {
+        let singlePostQuery = query(commentRef, where('postId', '==', postId));
+        onSnapshot(singlePostQuery, (response) => {
+            const comment = response.docs.map((doc) => {
+                return {
+                    id: doc.id, ...doc.data(),
+                }
+            })
+            setComments(comment);
+        })
+    } catch(err) {
+        console.log(err);
+    }
+};
