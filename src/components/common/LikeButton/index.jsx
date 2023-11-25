@@ -4,7 +4,7 @@ import { getLikeByUser, likePost, postComment, getComments } from '../../../api/
 import "./index.scss";
 import {getCurrentTimeStamp} from "../../../helpers/useMoment.jsx";
 
-export default function LikeButton({userId, postId}) {
+export default function LikeButton({userId, postId, currentUser}) {
     const [likesCount, setLikesCount] = useState(0);
     const [liked, setLiked] = useState(false);
     const [showCommentBox, setShowCommentBox] = useState(false);
@@ -25,7 +25,7 @@ export default function LikeButton({userId, postId}) {
     }
 
     const addComment = () => {
-        postComment(postId, comment, getCurrentTimeStamp('LLL'));
+        postComment(postId, comment, getCurrentTimeStamp('LLL'), currentUser?.name);
         setComment('');
     }
 
@@ -39,8 +39,8 @@ export default function LikeButton({userId, postId}) {
                 <div className='likes-inner' onClick={handleLike}>
                     {liked ? <BiSolidLike size ={25} /> : <BiLike size ={25} />} <p>like</p>
                 </div>
-                <div className='comment-inner' onClick={() => setShowCommentBox(true)}>
-                    {showCommentBox ? <BiSolidComment size ={25}/> : <BiComment size ={25} />} <p>comment</p>
+                <div className='comment-inner' onClick={() => setShowCommentBox(!showCommentBox)}>
+                    {showCommentBox ? <BiSolidComment size ={25}/> : <BiComment size ={25} />} <p>comments</p>
                 </div>
             </div>
             {showCommentBox? (<>
@@ -48,9 +48,10 @@ export default function LikeButton({userId, postId}) {
                 <button className='add-comment-btn' onClick={addComment}>Add Comment</button>
                 {comments.length > 0 ? (comments.map((comment) => {
                     return (
-                        <div>
-                            <p>{comment.timeStamp}</p> 
-                            <p>{comment.comment}</p> 
+                        <div className='all-comments'>
+                            <p className='name'>{comment.currentUserName}</p>
+                            <p className='comment'>{comment.comment}</p>
+                            <p className='timeStamp'>{comment.timeStamp}</p> 
                         </div>
                     )
                 })) : (<></>)}
