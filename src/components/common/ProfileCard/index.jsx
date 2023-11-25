@@ -1,14 +1,19 @@
 import React, { useState, useMemo} from "react";
 import PostsCard from "../PostsCard";
-import { getSingleStatus, getSingleUser } from "../../../api/FirestoreAPIs";
+import { getSingleStatus, getSingleUser} from "../../../api/FirestoreAPIs";
 import { useLocation } from "react-router-dom";
-import "./index.scss";
+import FileUploadModal from "../FileUploadModal";
 import { HiOutlinePencil} from "react-icons/hi";
+import { uploadImage as uploadImageAPI } from "../../../api/ImageUpload";
+import "./index.scss";
 
 export default function ProfileCard({currentUser, onEdit}) {
     let location = useLocation();
     const [allStatuses, setAllStatuses] = useState([]);
     const [currentProfile, setCurrentProfile] = useState([]);
+    const [currentImage, setCurrentImage] = useState({});
+    const [modalOpen, setModalOpen] = useState(false);
+
     useMemo(() => {
         if (location?.state?.id) {
             getSingleUser(setCurrentProfile, location?.state?.email);
@@ -16,14 +21,24 @@ export default function ProfileCard({currentUser, onEdit}) {
         }
     }, []);
 
+    const getImage = (event) => {
+        setCurrentImage(event.target.files[0]);
+    };
+
+    const uploadImage = () => {
+        uploadImageAPI(currentImage, currentUser.id);
+    };
+
     return (
         <>
+            <FileUploadModal modalOpen={modalOpen} setModalOpen={setModalOpen} getImage={getImage} uploadImage={uploadImage}/>
             <div className="profile-card">
                 <div className="edit-btn">
                     <HiOutlinePencil className="edit-icon" onClick={onEdit}/>
                 </div>
                 <div className="profileInfo">
                     <div>
+                        <img className="profileImage" src ={Object.values(currentProfile).length === 0 ? currentUser.imageLink : currentProfile?.imageLink} alt="profile image" onClick={() => setModalOpen(true)}/>
                         <h3 className="userName">{Object.values(currentProfile).length === 0 ? currentUser.name : currentProfile?.name}</h3>
                         <p className="heading">{Object.values(currentProfile).length === 0 ? currentUser.headline : currentProfile?.headline}</p>
                         <p className="city">
