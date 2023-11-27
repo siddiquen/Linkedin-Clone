@@ -10,6 +10,8 @@ export default function PostStatus({currentUser}) {
     const [modalOpen, setModalOpen] = useState(false);
     const [status, setStatus] = useState('');
     const [allStatuses, setAllStatuses] = useState([]);
+    const [isEdit, setIsEdit] = useState(false);
+
     const sentStatus = async () => {
         let object = {
             status: status, 
@@ -17,23 +19,29 @@ export default function PostStatus({currentUser}) {
             userEmail: currentUser.email,
             userName: currentUser.name,
             postID: getUniqueId(),
-            userId: currentUser.userId,
+            userId: currentUser.id,
         };
         await postStatus(object);
         await setModalOpen(false);
         await setStatus("");
     };
-    //console.log(currentUser.id);
-    //console.log(currentUser.userId);
 
     useMemo(() => {
         getStatus(setAllStatuses);
     }, []);
 
+    const getEditData = (posts) => {
+        setModalOpen(true);
+        setStatus(posts?.status);
+        setIsEdit(true);
+    };
+
     return (
         <div className="post-status-main">
             <div className="post-status">
-                <button className="open-post-modal" onClick={() => setModalOpen(true)}>
+                <button className="open-post-modal" onClick={() => {
+                    setModalOpen(true)
+                    setIsEdit(false)}}>
                     Start a Post
                 </button>
             </div>
@@ -44,13 +52,14 @@ export default function PostStatus({currentUser}) {
                 setModalOpen={setModalOpen}
                 status={status}
                 sendStatus = { sentStatus}
+                isEdit={isEdit}
             />
 
             <div>
                 {allStatuses.map((posts) => {
                     return (
                         <div key={posts.id}>
-                            <PostsCard posts = {posts}/>
+                            <PostsCard posts = {posts} getEditData={getEditData}/>
                         </div>
                     );
                 })}

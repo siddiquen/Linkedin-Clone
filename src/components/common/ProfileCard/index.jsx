@@ -13,6 +13,7 @@ export default function ProfileCard({currentUser, onEdit}) {
     const [currentProfile, setCurrentProfile] = useState([]);
     const [currentImage, setCurrentImage] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
+    const [progress, setProgress] = useState(0);
 
     useMemo(() => {
         if (location?.state?.id) {
@@ -26,12 +27,12 @@ export default function ProfileCard({currentUser, onEdit}) {
     };
 
     const uploadImage = () => {
-        uploadImageAPI(currentImage, currentUser.id);
+        uploadImageAPI(currentImage, currentUser.id, setModalOpen, setProgress, setCurrentImage);
     };
 
     return (
         <>
-            <FileUploadModal modalOpen={modalOpen} setModalOpen={setModalOpen} getImage={getImage} uploadImage={uploadImage}/>
+            <FileUploadModal modalOpen={modalOpen} setModalOpen={setModalOpen} getImage={getImage} uploadImage={uploadImage} currentImage={currentImage} progress={progress}/>
             <div className="profile-card">
                 <div className="edit-btn">
                     <HiOutlinePencil className="edit-icon" onClick={onEdit}/>

@@ -11,8 +11,12 @@ const ModalComponent = ({modalOpen, setModalOpen, sendStatus, setStatus, status}
         title="Create a post"
         centered
         open={modalOpen}
-        onOk={() => setModalOpen(false)}
-        onCancel={() => setModalOpen(false)}
+        onOk={() => 
+          {setStatus('')
+          setModalOpen(false);}}
+        onCancel={() => 
+          {setStatus('')
+          setModalOpen(false);}}
         footer={[
             <Button
               onClick={sendStatus}

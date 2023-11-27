@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Progress, Space} from 'antd';
 import "./index.scss";
 
-export default function FileUploadModal({modalOpen, setModalOpen, getImage, uploadImage}) {
+export default function FileUploadModal({modalOpen, setModalOpen, getImage, uploadImage, currentImage, progress}) {
     return (
         <div>
             <Modal
@@ -11,13 +11,19 @@ export default function FileUploadModal({modalOpen, setModalOpen, getImage, uplo
                 onOk={() => setModalOpen(false)}
                 onCancel={() => setModalOpen(false)}
                 footer = {[
-                    <Button key="submit" type="primary" onClick={uploadImage}>
+                    <Button disabled={currentImage.name ? false : true} key="submit" type="primary" onClick={uploadImage}>
                         Upload Profile Picture
                     </Button>
                 ]}
             >
                 <div className='imageUploadMain'>
+                    <p>{currentImage.name}</p>
                     <label className="uploadBtn" for="imageUpload">Add an Image</label>
+                    {progress === 0 ? (<></>) :
+                        (<div className='progressBar'>
+                            <Progress type='circle' percent={progress} />
+                        </div>)
+                    }
                     <input hidden id="imageUpload" type={"file"} onChange={getImage}/>
                 </div>
             </Modal>
