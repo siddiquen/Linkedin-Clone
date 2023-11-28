@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LikeButton from '../LikeButton';
-import {getCurrentUser, getAllUsers} from "../../../api/FirestoreAPIs";
+import {getCurrentUser, getAllUsers, deletePost} from "../../../api/FirestoreAPIs";
 import { HiOutlinePencil, HiTrash} from "react-icons/hi";
 import "./index.scss";
 
@@ -27,13 +27,17 @@ export default function PostsCard({posts, id, getEditData}) {
                             navigate('/profile', {state: {id:posts?.userId, email:posts.userEmail}})
                         }
                     >
-                        {posts.userName}
+                        {allUsers.filter((user)=> user.id === posts.userId)[0]?.name}
                     </p>
+                    <p className='timeStamp'>{allUsers.filter((user)=> user.id === posts.userId)[0]?.headline}</p>
                     <p className='timeStamp'>{posts.timeStamp}</p>
                 </div>
                 <div className='actionContainer'>
-                    <HiOutlinePencil size={30} className='actionIcon' onClick={() => getEditData(posts)}/>
-                    <HiTrash size={30} className='actionIcon' />
+                    {currentUser?.id === posts.userId ? (<>
+                        <HiOutlinePencil size={30} className='actionIcon' onClick={() => getEditData(posts)}/>
+                        <HiTrash size={30} className='actionIcon' onClick={() => deletePost(posts.id)}/></>
+                    ) : (<></>)}
+                    
                 </div>
             </div>
             <p className='status'>{posts.status}</p>

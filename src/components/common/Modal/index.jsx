@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'antd';
 import './index.scss';
 
-const ModalComponent = ({modalOpen, setModalOpen, sendStatus, setStatus, status}) => {
+const ModalComponent = ({modalOpen, setModalOpen, sendStatus, setStatus, status, isEdit, updateStatus}) => {
 
 
     return (
@@ -19,11 +19,11 @@ const ModalComponent = ({modalOpen, setModalOpen, sendStatus, setStatus, status}
           setModalOpen(false);}}
         footer={[
             <Button
-              onClick={sendStatus}
+              onClick={isEdit ? updateStatus : sendStatus}
               key="submit"
               type="primary"
               disabled={status.length > 0 ? false : true}>
-                Post
+                {isEdit ? 'update' : 'post'}
             </Button>
           ]}
       >

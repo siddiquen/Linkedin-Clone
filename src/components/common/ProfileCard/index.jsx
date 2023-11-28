@@ -35,7 +35,10 @@ export default function ProfileCard({currentUser, onEdit}) {
             <FileUploadModal modalOpen={modalOpen} setModalOpen={setModalOpen} getImage={getImage} uploadImage={uploadImage} currentImage={currentImage} progress={progress}/>
             <div className="profile-card">
                 <div className="edit-btn">
-                    <HiOutlinePencil className="edit-icon" onClick={onEdit}/>
+                    {currentUser?.id === currentProfile?.id ? (<>
+                        <HiOutlinePencil className="edit-icon" onClick={onEdit}/></>
+                    ) : (<></>)}
+                    
                 </div>
                 <div className="profileInfo">
                     <div>

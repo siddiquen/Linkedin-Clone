@@ -1,6 +1,6 @@
 import React, { useState, useMemo} from "react";
 import ModalComponent from "../Modal";
-import { getStatus, postStatus } from "../../../api/FirestoreAPIs";
+import { getStatus, postStatus, updatePost } from "../../../api/FirestoreAPIs";
 import PostsCard from "../PostsCard";
 import { getCurrentTimeStamp } from "../../../helpers/useMoment";
 import { getUniqueId } from "../../../helpers/getUniqueId";
@@ -11,6 +11,7 @@ export default function PostStatus({currentUser}) {
     const [status, setStatus] = useState('');
     const [allStatuses, setAllStatuses] = useState([]);
     const [isEdit, setIsEdit] = useState(false);
+    const [currentPost, setCurrentPost] = useState({});
 
     const sentStatus = async () => {
         let object = {
@@ -23,6 +24,7 @@ export default function PostStatus({currentUser}) {
         };
         await postStatus(object);
         await setModalOpen(false);
+        setIsEdit(false);
         await setStatus("");
     };
 
@@ -34,11 +36,24 @@ export default function PostStatus({currentUser}) {
         setModalOpen(true);
         setStatus(posts?.status);
         setIsEdit(true);
+        setCurrentPost(posts);
     };
+
+    const updateStatus = () => {
+        console.log(status);
+        updatePost(currentPost.id, status);
+        setModalOpen(false);
+    }
 
     return (
         <div className="post-status-main">
+            <div className="user_details">
+                <img src={currentUser.imageLink} alt="image link" />
+                <p className="name">{currentUser.name}</p>
+                <p className="headline">{currentUser.headline}</p>
+            </div>
             <div className="post-status">
+                <img className="postImage" src={currentUser.imageLink} alt="image link" />
                 <button className="open-post-modal" onClick={() => {
                     setModalOpen(true)
                     setIsEdit(false)}}>
@@ -53,6 +68,7 @@ export default function PostStatus({currentUser}) {
                 status={status}
                 sendStatus = { sentStatus}
                 isEdit={isEdit}
+                updateStatus={updateStatus}
             />
 
             <div>

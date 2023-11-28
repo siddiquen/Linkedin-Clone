@@ -19,7 +19,7 @@ export default function ProfilePopup() {
             
             <Button title = 'View Profile' 
                 onClick={() => 
-                    navigate('/profile', {state: {id:currentUser?.userId, email:currentUser.email}})
+                    navigate('/profile', {state: {id:currentUser?.id, email:currentUser.email}})
                 }
             />
             <Button title = 'Logout' onClick={onLogout}/>
