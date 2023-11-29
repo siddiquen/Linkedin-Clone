@@ -1,6 +1,6 @@
 import React, { useState, useMemo} from "react";
 import ModalComponent from "../Modal";
-import { getStatus, postStatus, updatePost } from "../../../api/FirestoreAPIs";
+import { getStatus, postStatus, updatePost} from "../../../api/FirestoreAPIs";
 import PostsCard from "../PostsCard";
 import { getCurrentTimeStamp } from "../../../helpers/useMoment";
 import { getUniqueId } from "../../../helpers/getUniqueId";
@@ -12,6 +12,7 @@ export default function PostStatus({currentUser}) {
     const [allStatuses, setAllStatuses] = useState([]);
     const [isEdit, setIsEdit] = useState(false);
     const [currentPost, setCurrentPost] = useState({});
+
 
     const sentStatus = async () => {
         let object = {
@@ -44,6 +45,7 @@ export default function PostStatus({currentUser}) {
         updatePost(currentPost.id, status);
         setModalOpen(false);
     }
+
 
     return (
         <div className="post-status-main">

@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LikeButton from '../LikeButton';
-import {getCurrentUser, getAllUsers, deletePost} from "../../../api/FirestoreAPIs";
+import {getCurrentUser, getAllUsers, deletePost, getConnections} from "../../../api/FirestoreAPIs";
 import { HiOutlinePencil, HiTrash} from "react-icons/hi";
 import "./index.scss";
 
@@ -9,14 +9,20 @@ export default function PostsCard({posts, id, getEditData}) {
     let navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState({});
     const [allUsers, setAllUsers] = useState([]);
+    const [isConnected, setIsConnected] = useState(false);
 
     useMemo(() => {
         getCurrentUser(setCurrentUser);
         getAllUsers(setAllUsers);
     }, [])
+
+    useEffect(() => {
+        getConnections(currentUser.id, posts.userId, setIsConnected);
+    }, [currentUser.id, posts.userId])
    
 
     return (
+        isConnected ? 
         <div className='postsCard' key={id}>
             <div className='postImageWrapper'>
                 <img alt="ProfileImage" className="PostImage" src={allUsers.filter((item) => item.id == posts.userId).map((item) => item.imageLink)[0]}/>
@@ -43,6 +49,6 @@ export default function PostsCard({posts, id, getEditData}) {
             <p className='status'>{posts.status}</p>
 
             <LikeButton userId = {currentUser?.id} postId = {posts.id} currentUser={currentUser}/>
-        </div>
+        </div> : <></>
     );
 }

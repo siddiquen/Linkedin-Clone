@@ -1,0 +1,16 @@
+.ConnectionsMain {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    .gridChild {
+        border: 1px solid black;
+        width: 300px;
+        margin: 20px;
+        padding: 10px;
+        cursor: pointer;
+    }
+}

@@ -40,7 +40,7 @@ export default function TopBar() {
             <div className='react-icons'>
                 <AiOutlineSearch size={20} className='react-icon'/>
                 <AiOutlineHome size={20} className='react-icon' onClick={() => goToRoute('/home')}/>
-                <AiOutlineUserSwitch size={20} className='react-icon' />
+                <AiOutlineUserSwitch size={20} className='react-icon' onClick={() => goToRoute('/connections')}/>
                 <BsBriefcase size={20} className='react-icon' />
                 <AiOutlineMessage size={20} className='react-icon'/>
                 <AiOutlineBell size={20} className='react-icon'/>

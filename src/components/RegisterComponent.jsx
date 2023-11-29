@@ -22,6 +22,7 @@ export default function RegisterComponent() {
                 userId: getUniqueId(), 
                 name: credentials.name, 
                 email: credentials.email,
+                imageLink: "https://cdn3.iconfinder.com/data/icons/yumminky-pc/100/yumminky-pc-43-512.png"
             });
             navigate('/home');
             localStorage.setItem("userEmail" , res.user.email);
