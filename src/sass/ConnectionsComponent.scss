@@ -1,16 +1,73 @@
 .ConnectionsMain {
     display: grid;
     grid-template-columns: auto auto;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
+    margin: 30px;
+    border: 1px solid black;
+    background-color: whitesmoke;
+    border-radius: 10px;
+
     .gridChild {
         border: 1px solid black;
-        width: 300px;
+        width: 250px;
+        height: 200px;
         margin: 20px;
         padding: 10px;
-        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 10px;
+        
+
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgb(151, 151, 151);
+            padding: 5px;
+            cursor: pointer;
+            object-fit: contain;
+        }
+
+        .name {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 18px;
+            color: black;
+            font-weight: 600;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .headline {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 12px;
+            color: black;
+            font-weight: 400;
+            margin: 0px 0 0 0px;
+        }
+
+        button {
+            width: 200px;
+            height: 30px;
+            cursor: pointer;
+            background-color: whitesmoke;
+            border: 1px solid rgb(0, 86, 156);;
+            color: rgb(0, 86, 156);
+            border-radius: 30px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 7px 0;
+        }
+
+        button:hover {
+            background-color: rgb(224, 224, 224);
+            border: 1px solid rgb(0, 73, 132);
+            color: rgb(0, 73, 132);
+        }
     }
 }

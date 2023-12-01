@@ -9,10 +9,12 @@ export default function ConnectedUsers({currentUser, user, getCurrentUser}) {
         getConnections(currentUser.id, user.id, setIsConnected);
     }, [currentUser.id, user.id])
     return (
-        isConnected === false ? 
-        <div className="gridChild" onClick={() => getCurrentUser(user.id)}>
-            <p>{user.name}</p>
-            <p>{user.headline}</p>
-        </div> : <>You have all Connections!</>
+        
+        <div className="gridChild" >
+            <img src={user.imageLink}/>
+            <p className="name">{user.name}</p>
+            <p className="headline">{user.headline}</p>
+            {isConnected === false ? (<button onClick={() => getCurrentUser(user.id)}>Connect</button>) : <>Already Connected!</>}
+        </div>
     )
 }
